@@ -1,0 +1,1 @@
+# Mangarock API Wrapper
