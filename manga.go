@@ -5,12 +5,16 @@ type Manga struct {
 	Author         string            `json:"author"`
 	Description    string            `json:"description"`
 	Thumbnail      string            `json:"thumbnail"`
+	Cover          string            `json:"cover"`
+	Oid            string            `json:"oid"`
+	MsID           int               `json:"msid"`
 	Authors        []Author          `json:"authors"`
 	Alias          []string          `json:"alias"`
 	Artworks       []string          `json:"artworks"`
 	Characters     []Character       `json:"characters"`
-	Chapters       []Chapter         `json:"chpaters"`
+	Chapters       []Chapter         `json:"chapters"`
 	Categories     []int             `json:"categories"`
+	Completed      bool              `json:"completed"`
 	RichCategories []RichCategory    `json:"rich_categories"`
 	MrsSeries      int               `json:"mrs_series"`
 	Extra          map[string]string `json:"extra"`
