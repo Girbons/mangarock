@@ -1,5 +1,7 @@
 # Mangarock Go API Wrapper
 
+[![Build Status](https://travis-ci.org/Girbons/mangarock.svg?branch=master)](https://travis-ci.org/Girbons/mangarock)
+[![Coverage Status](https://coveralls.io/repos/github/Girbons/mangarock/badge.svg?branch=dev)](https://coveralls.io/github/Girbons/mangarock?branch=dev)
 [![GoDoc](https://godoc.org/github.com/Girbons/mangarock?status.svg)](https://godoc.org/github.com/Girbons/mangarock)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Girbons/mangarock)](https://goreportcard.com/report/github.com/Girbons/mangarock)
 
@@ -24,6 +26,10 @@ import (
 
 func main() {
 	client := mangarock.NewClient()
+	// if you need to set a country to retrieve a manga
+	// you can set it as option
+	options := make(map[string]string{"country":"your country"})
+	client.SetOptions(options)
 
 	info, err := client.Info("mrs-serie-35593")
 

@@ -7,7 +7,7 @@ import (
 )
 
 // APIEndpoint is the mangarock api endpoint :)
-const APIEndpoint = "https://api.mangarockhd.com"
+const APIEndpoint = "https://api.mangarockhd.com/"
 
 // MangaRockInfo is used to parse a response from the `info` endpoint
 // Contains the information related to a Manga
@@ -26,13 +26,15 @@ type MangaRockPages struct {
 // Client contains only the `client` by now
 // Maybe in future it can contains an ApiKey
 type Client struct {
-	Client *http.Client
+	Client  *http.Client
+	Options map[string]string
 }
 
 // NewClient returns a Client instance
 func NewClient() *Client {
 	return &Client{
-		Client: &http.Client{},
+		Client:  &http.Client{},
+		Options: make(map[string]string),
 	}
 }
 
@@ -41,13 +43,45 @@ func getJSON(response *http.Response, target interface{}) error {
 	return json.NewDecoder(response.Body).Decode(target)
 }
 
+// Set Additional options to the client instance
+func (m *Client) SetOptions(options map[string]string) {
+	m.Options = options
+}
+
+// prepareRequest will setup a request by using method and endpoint
+// it can be used to set a future API key
+func (m *Client) prepareRequest(method, endpoint string) (*http.Request, error) {
+	req, err := http.NewRequest(method, fmt.Sprintf("%s%s", APIEndpoint, endpoint), nil)
+	// add country if in options
+	if country, ok := m.Options["country"]; ok {
+		q := req.URL.Query()
+		q.Add("country", country)
+		req.URL.RawQuery = q.Encode()
+	}
+	return req, err
+}
+
+// Get is Client Get method
+func (m *Client) Get(endpoint string) (*http.Response, error) {
+	request, reqErr := m.prepareRequest("GET", endpoint)
+
+	if reqErr != nil {
+		return nil, reqErr
+	}
+
+	response, err := m.Client.Do(request)
+	return response, err
+}
+
 // Info returns the info related to a manga
 func (m *Client) Info(comicName string) (*MangaRockInfo, error) {
+	endpoint := fmt.Sprintf("query/web400/info?oid=%s", comicName)
+
 	mangaInfo := new(MangaRockInfo)
-	response, err := m.Client.Get(fmt.Sprintf("%s/query/web400/info?oid=%s", APIEndpoint, comicName))
+	response, err := m.Get(endpoint)
 
 	if err != nil {
-		return mangaInfo, err
+		return nil, err
 	}
 
 	defer response.Body.Close()
@@ -58,9 +92,10 @@ func (m *Client) Info(comicName string) (*MangaRockInfo, error) {
 
 // Pages returns the pages related to a manga
 func (m *Client) Pages(comicName string) (*MangaRockPages, error) {
-	mangaPages := new(MangaRockPages)
+	endpoint := fmt.Sprintf("query/web400/pages?oid=%s", comicName)
 
-	response, err := m.Client.Get(fmt.Sprintf("%s/query/web400/pages?oid=%s", APIEndpoint, comicName))
+	mangaPages := new(MangaRockPages)
+	response, err := m.Get(endpoint)
 
 	if err != nil {
 		return mangaPages, err

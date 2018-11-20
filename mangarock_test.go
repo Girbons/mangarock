@@ -7,13 +7,21 @@ import (
 )
 
 var client = NewClient()
+var options = map[string]string{"country": "italy"}
 
 func TestMangaRockInfo(t *testing.T) {
+	client.SetOptions(options)
 	result, _ := client.Info("mrs-serie-35593")
 
+	assert.Equal(t, 0, result.Code)
 	assert.Equal(t, "Ukyo Kodachi", result.Data.Author)
 	assert.Equal(t, "https://f01.mrcdn.info/file/mrportal/i/5/8/3/G3.6PwgFb_B.jpg", result.Data.Thumbnail)
 	assert.Equal(t, 2, len(result.Data.Authors))
+	// check that Author is filled
+	assert.Equal(t, "Ukyo Kodachi", result.Data.Authors[0].Name)
+	assert.Equal(t, "mrs-author-306911", result.Data.Authors[0].Oid)
+	assert.Equal(t, "story", result.Data.Authors[0].Role)
+	assert.Equal(t, "https://f01.mrcdn.info/file/mrportal/i/5/7/g/ej.vP9TUgn.jpg", result.Data.Authors[0].Thumbnail)
 	assert.Equal(t, 26547669, result.Data.Chapters[0].Cid)
 	// check that chapter is filled
 	assert.Equal(t, "Vol.1 Number 1: Uzumaki Boruto!!", result.Data.Chapters[0].Name)
@@ -40,6 +48,8 @@ func TestMangaRockInfo(t *testing.T) {
 }
 
 func TestMangaRockPages(t *testing.T) {
+	client.SetOptions(options)
+
 	result, _ := client.Pages("mrs-chapter-100051049")
 
 	assert.Equal(t, 0, result.Code)
