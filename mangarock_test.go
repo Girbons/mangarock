@@ -14,6 +14,7 @@ func TestMangaRockInfo(t *testing.T) {
 	result, _ := client.Info("mrs-serie-35593")
 
 	assert.Equal(t, 0, result.Code)
+	assert.Equal(t, "Boruto: Naruto Next Generations", result.Data.Name)
 	assert.Equal(t, "Ukyo Kodachi", result.Data.Author)
 	assert.Equal(t, "https://f01.mrcdn.info/file/mrportal/i/5/8/3/G3.6PwgFb_B.jpg", result.Data.Thumbnail)
 	assert.Equal(t, 2, len(result.Data.Authors))

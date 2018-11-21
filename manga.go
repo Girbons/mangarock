@@ -3,6 +3,7 @@ package mangarock
 // Manga Struct contains all the informations returned by mangarock about a manga
 type Manga struct {
 	Author         string            `json:"author"`
+	Name           string            `json:"name"`
 	Description    string            `json:"description"`
 	Thumbnail      string            `json:"thumbnail"`
 	Cover          string            `json:"cover"`
