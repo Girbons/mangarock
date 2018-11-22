@@ -7,7 +7,7 @@ import (
 )
 
 // APIEndpoint is the mangarock api endpoint :)
-const APIEndpoint = "https://api.mangarockhd.com/"
+const APIEndpoint = "https://api.mangarockhd.com/query/web401/"
 
 // MangaRockInfo is used to parse a response from the `info` endpoint
 // Contains the information related to a Manga
@@ -75,7 +75,7 @@ func (m *Client) Get(endpoint string) (*http.Response, error) {
 
 // Info returns the info related to a manga
 func (m *Client) Info(comicName string) (*MangaRockInfo, error) {
-	endpoint := fmt.Sprintf("query/web401/info?oid=%s", comicName)
+	endpoint := fmt.Sprintf("info?oid=%s", comicName)
 
 	mangaInfo := new(MangaRockInfo)
 	response, err := m.Get(endpoint)
@@ -92,7 +92,7 @@ func (m *Client) Info(comicName string) (*MangaRockInfo, error) {
 
 // Pages returns the pages related to a manga
 func (m *Client) Pages(comicName string) (*MangaRockPages, error) {
-	endpoint := fmt.Sprintf("query/web401/pages?oid=%s", comicName)
+	endpoint := fmt.Sprintf("pages?oid=%s", comicName)
 
 	mangaPages := new(MangaRockPages)
 	response, err := m.Get(endpoint)
