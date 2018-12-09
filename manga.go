@@ -7,7 +7,7 @@ type Manga struct {
 	Description    string            `json:"description"`
 	Thumbnail      string            `json:"thumbnail"`
 	Cover          string            `json:"cover"`
-	Oid            string            `json:"oid"`
+	OID            string            `json:"oid"`
 	MsID           int               `json:"msid"`
 	Authors        []*Author         `json:"authors"`
 	Alias          []string          `json:"alias"`
