@@ -31,10 +31,10 @@ type Client struct {
 }
 
 // NewClient returns a Client instance
-func NewClient() *Client {
+func NewClient(options map[string]string) *Client {
 	return &Client{
 		Client:  &http.Client{},
-		Options: make(map[string]string),
+		Options: options,
 	}
 }
 

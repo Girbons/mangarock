@@ -25,13 +25,13 @@ import (
 )
 
 func main() {
-	client := mangarock.NewClient()
-	// if you need to set a country to retrieve a manga
-	// set the country as an option
 	options := make(map[string]string{"country":"your country"})
-	client.SetOptions(options)
+	client := mangarock.NewClient(options)
 
 	info, err := client.Info("mrs-serie-35593")
+
+	// SetOptions is still available
+	// client.SetOptions(options)
 
 	if err != nil {
 		// do something

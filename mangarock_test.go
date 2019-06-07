@@ -6,11 +6,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var client = NewClient()
 var options = map[string]string{"country": "italy"}
+var client = NewClient(options)
 
 func TestMangaRockInfo(t *testing.T) {
-	client.SetOptions(options)
 	result, _ := client.Info("mrs-serie-35593")
 
 	assert.Equal(t, 0, result.Code)
@@ -29,7 +28,7 @@ func TestMangaRockInfo(t *testing.T) {
 	assert.Equal(t, "mrs-chapter-35594", result.Data.Chapters[0].OID)
 	assert.Equal(t, 0, result.Data.Chapters[0].Order)
 	assert.Equal(t, 8, len(result.Data.Categories))
-	assert.Equal(t, 34, len(result.Data.Chapters))
+	assert.Equal(t, 35, len(result.Data.Chapters))
 	assert.Equal(t, false, result.Data.Completed)
 	assert.Equal(t, "https://f01.mrcdn.info/file/mrportal/h/c/3/0/J_.h_1FHZfW.jpg", result.Data.Cover)
 	assert.Equal(t, 1, result.Data.Direction)
@@ -38,7 +37,7 @@ func TestMangaRockInfo(t *testing.T) {
 	assert.Equal(t, "Viz", result.Data.Extra["English Publisher"])
 	assert.Equal(t, "Shueisha ", result.Data.Extra["Original Publisher"])
 	assert.Equal(t, "May 9, 2016 ", result.Data.Extra["Published"])
-	assert.Equal(t, 34, result.Data.TotalChapters)
+	assert.Equal(t, 35, result.Data.TotalChapters)
 	assert.Equal(t, 553712, result.Data.Mid)
 	assert.Equal(t, 71, result.Data.MsID)
 }
