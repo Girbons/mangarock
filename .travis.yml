@@ -1,16 +1,20 @@
 language: go
 
-go:
-  - 1.12.x
+matrix:
+  include:
+  - go: "1.11.x"
+    script:
+      - go test -v -covermode=count -coverprofile=coverage.out ./...
+      - goveralls -coverprofile=coverage.out -service travis-ci -repotoken $COVERALLS_TOKEN
+  - go: "1.12.x"
+    script:
+      - go test -v -covermode=count -coverprofile=coverage.out ./...
+      - goveralls -coverprofile=coverage.out -service travis-ci -repotoken $COVERALLS_TOKEN
 
-# Skip the install step. Don't `go get` dependencies. Only build with the code
-# in vendor/
 install: true
 
-before_install:
-  - go get github.com/stretchr/testify
-  - go get github.com/mattn/goveralls
+env:
+  - GO111MODULE=on
 
-script:
-  - go test -v -covermode=count -coverprofile=coverage.out ./...
-  - goveralls -coverprofile=coverage.out -service travis-ci -repotoken $COVERALLS_TOKEN
+before_install:
+  - go get github.com/mattn/goveralls
