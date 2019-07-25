@@ -25,7 +25,7 @@ import (
 )
 
 func main() {
-    // there are 2 way to initialize a client
+    // there are 2 ways to initialize a client
     // the first one is using `NewClient`
     client := mangarock.NewClient()
 
