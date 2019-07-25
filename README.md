@@ -27,22 +27,20 @@ import (
 func main() {
     // there are 2 way to initialize a client
     // the first one is using `NewClient`
-	client := mangarock.NewClient()
+    client := mangarock.NewClient()
 
-    // the other one is using `NewClientWithOptions`
-	options := make(map[string]string{"country":"your country"})
-	client := mangarock.NewClientWithOptions(options)
+    //the other one is using `NewClientWithOptions`
+    options := make(map[string]string{"country":"your country"})
+    client := mangarock.NewClientWithOptions(options)
 
-	info, err := client.Info("mrs-serie-35593")
+    info, err := client.Info("mrs-serie-35593")
+    // SetOptions is still available
+    // client.SetOptions(options)
+    if err != nil {
+        // do something
+    }
 
-	// SetOptions is still available
-	// client.SetOptions(options)
-
-	if err != nil {
-		// do something
-	}
-
-	fmt.Println(info.Data.Author)
+    fmt.Println(info.Data.Author)
 }
 ```
 
