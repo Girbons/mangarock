@@ -5,6 +5,10 @@
 [![GoDoc](https://godoc.org/github.com/Girbons/mangarock?status.svg)](https://godoc.org/github.com/Girbons/mangarock)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Girbons/mangarock)](https://goreportcard.com/report/github.com/Girbons/mangarock)
 
+# NOTICE
+
+As announced https://mangarock.com/ will be shutdown, this library will no longer work!
+
 ## Getting started
 
 ### Installing
